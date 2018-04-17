@@ -1,32 +1,39 @@
-var leads = require('./leads.json');
-var res = {}
+const fs = require('fs');
+const leads = require('./leads.json');
+
+let resId = {}
 
 leads.forEach((e) => {
-    if (res[e.ID] === undefined) {
-        res[e.ID] = e;
+    if (resId[e.ID] === undefined) {
+        resId[e.ID] = e;
     }
     else {
-        let prev = res[e.ID];
+        let prev = resId[e.ID];
         if (prev.Date <= e.Date) {
-            res[e.ID] = e
+            resId[e.ID] = e
         }
     }
 })
 
-var fRes = {}
+let resEmail = {}
 
-for (e in res) {
-    let fEmail = res[e]['Email'];
-    if (fRes[fEmail] === undefined) {
-        fRes[fEmail] = res[e];
+for (e in resId) {
+    let preEmail = resId[e]['Email'];
+    if (resEmail[preEmail] === undefined) {
+        resEmail[preEmail] = resId[e];
     }
     else {
-        let prev = fRes[fEmail];
-        if (prev.Date <= res[e].Date) {
-            fRes[fEmail] = res[e];
+        let prev = resEmail[preEmail];
+        if (prev.Date <= resId[e].Date) {
+            resEmail[preEmail] = resId[e];
         }
     }
 }
 
+var res = []
+for (e in resEmail) {
+    res.push(resEmail[e]);
+}
 
-console.log(fRes);
+//console.log(res);
+fs.writeFile('results.json', JSON.stringify(res), function (err) { if (err) console.log(err); else { console.log("Done"); } });
