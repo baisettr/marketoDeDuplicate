@@ -44,7 +44,7 @@ function getResult(leads) {
                     if (prev.ID != p.ID) {
                         changeValue += 'For Email : ' + p.Email + ' value of ID changed from ' + prev.ID + ' to ' + p.ID + '\n';
                     }
-                    if (prev.Name != e.Name) {
+                    if (prev.Name != p.Name) {
                         changeValue += 'For Email : ' + p.Email + ' value of name changed from ' + prev.Name + ' to ' + p.Name + '\n';
                     }
                     uniqueEmails[pEmail] = p;
